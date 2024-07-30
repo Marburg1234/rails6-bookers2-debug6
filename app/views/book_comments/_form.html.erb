@@ -1,0 +1,8 @@
+      <!--新規コメント欄を挿入する-->
+      <div class="form-label">
+        <%= form_with model: [@book, @book_comment] do |f| %>
+          <%= f.text_area :comment, rows: '5', class: 'form-control border-info' %>
+          <br />
+          <%= f.submit "送信" %>
+        <% end %>
+      </div>

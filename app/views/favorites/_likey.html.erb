@@ -1,0 +1,15 @@
+
+        <!--いいね機能を挿入する-->
+
+          <% if book.favorited_by?(current_user) %>
+            <%= link_to book_favorite_path(book.id), method: :delete, class: 'text-danger', remote: true, data: {"turbolinks" => false} do %>
+            <i class="fa-solid fa-heart"></i>
+            <%= book.favorites.count %>
+            <% end %>
+          <% else %>
+            <%= link_to book_favorite_path(book.id), method: :post, class: 'text-primary', remote: true, data: {"turbolinks" => false} do %>
+            <i class="fa-solid fa-heart"></i>
+            <%= book.favorites.count %>
+            <% end %>
+          <% end %>
+
