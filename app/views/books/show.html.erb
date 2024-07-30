@@ -22,9 +22,11 @@
           <td id="favorite_buttons_<%= @book.id %>">
           <%= render 'favorites/likey', book: @book %>
           </td>
-          <div id="comment-count">
+          <td>
+
             <%= render 'book_comments/comment-count', book: @book %>
-          </div>
+
+          </td>
 
           <% if current_user.id == @book.user.id %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
