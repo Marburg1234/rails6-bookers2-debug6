@@ -22,8 +22,9 @@
           <td id="favorite_buttons_<%= @book.id %>">
           <%= render 'favorites/likey', book: @book %>
           </td>
-
-          <%= render 'comment-count', book: @book %>
+          <div id="comment-count">
+            <%= render 'book_comments/comment-count', book: @book %>
+          </div>
 
           <% if current_user.id == @book.user.id %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
@@ -33,8 +34,9 @@
         </tr>
       </table>
 
-      <%= render 'book_comments/index', user: @user, book: @book %>
-
+      <div id="book-comments">
+        <%= render 'book_comments/index', user: @user, book: @book, book_comment: @book_comment %>
+      </div>
 
       <!--新規コメント投稿のvalidateエラー文を挿入する-->
       <!--< if @book_comment.errors.any? %>-->
@@ -48,8 +50,9 @@
       <!--< end %>-->
 
       <!--新規コメント欄を挿入する-->
-      <%= render 'book_comments/form', book: @book, user: @user, book_comment: @book_comment %>
-
+       <div id="comment-form">
+        <%= render 'book_comments/form', book: @book, book_comment: @book_comment %>
+      </div>
 
     </div>
   </div>
