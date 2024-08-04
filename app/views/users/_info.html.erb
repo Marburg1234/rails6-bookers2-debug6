@@ -28,6 +28,9 @@
         <%= link_to "フォローする", user_relationships_path(user.id), method: :create, class: 'btn btn-success' %>
       <% end %>
     <% end %>
+
+    <!--チャットルームへのボタン作成-->
+    <%= render 'chats/chat_start_btn', user: user %>
   </div>
 
 <div class='row'>

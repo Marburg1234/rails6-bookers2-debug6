@@ -23,7 +23,7 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy
   # passiveを通して、フォローしてくるユーザー情報を取得⇒source: :followingになる
   has_many :followers, through: :passive_relationships, source: :following
-  
+
   # DM機能のアソシエート
   has_many :user_rooms, dependent: :destroy
   has_many :chats, dependent: :destroy
@@ -47,6 +47,7 @@ class User < ApplicationRecord
     # 今自分が(引数のユーザー)がフォローしようとしているユーザー(受け側)がフォローしているかどうかを判別する
     passive_relationships.find_by(following_id: user.id).present?
   end
+
 
   def self.looks(search, word)
     if search == "perfect_match"

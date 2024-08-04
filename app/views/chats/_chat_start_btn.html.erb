@@ -1,0 +1,4 @@
+<!--チャットルームへのボタン作成-->
+<% if current_user != user && current_user.followed_by?(user) && user.followed_by?(current_user) %>
+  <%= link_to 'Chat開始', chat_path(user.id), class: 'ml-3 btn btn-warning' %>
+<% end %>
