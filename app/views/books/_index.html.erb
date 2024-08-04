@@ -20,8 +20,9 @@
         <td id="favorite_buttons_<%= book.id %>">
          <%= render 'favorites/likey', book: book %>
         </td>
+        <td>
        <%= render 'book_comments/comment-count', book: book %>
-
+        </td>
         <td colspan="2"></td>
       </tr>
     <% end %>
