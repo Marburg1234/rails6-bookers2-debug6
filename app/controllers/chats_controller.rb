@@ -1,6 +1,6 @@
 class ChatsController < ApplicationController
 
-  before_action :block_non_related_users, only: [:show]
+  # before_action :block_non_related_users, only: [:show]
 
   # チャットルームの表示
   def show
@@ -56,8 +56,8 @@ class ChatsController < ApplicationController
 
   # 関連のないユーザーをブロックする
   def block_non_related_users
-   # ユーザーがお互いにフォローしているか確認し、していないばあにはリダイレクト
-    unless current_user.following?(user) && user.following?(current_user)
+  # ユーザーがお互いにフォローしているか確認し、していないばあにはリダイレクト
+    unless current_user.followed_by?(@user) && @user.followed_by?(current_user)
       redirect_to books_path
     end
   end

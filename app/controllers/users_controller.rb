@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    logger.debug("@user: #{@user.inspect}")
     @books = @user.books
     @book = Book.new
   end

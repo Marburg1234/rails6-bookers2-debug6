@@ -46,7 +46,16 @@ class User < ApplicationRecord
   def followed_by?(user)
     # 今自分が(引数のユーザー)がフォローしようとしているユーザー(受け側)がフォローしているかどうかを判別する
     passive_relationships.find_by(following_id: user.id).present?
+    # byebug
   end
+
+#   def followed_by?(user)
+#   if user.nil?
+#     false
+#   else
+#     passive_relationships.find_by(following_id: user.id).present?
+#   end
+# end
 
 
   def self.looks(search, word)
