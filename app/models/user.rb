@@ -39,6 +39,7 @@ class User < ApplicationRecord
 
 
 
+
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
@@ -49,13 +50,18 @@ class User < ApplicationRecord
     # byebug
   end
 
-#   def followed_by?(user)
-#   if user.nil?
-#     false
-#   else
-#     passive_relationships.find_by(following_id: user.id).present?
-#   end
-# end
+  # ゲストログインに必要なguestメソッドを定義する
+  # find_or_create_byは、データの検索と作成を自動で判断する→今回は指定してるemailがない→新規作成につながる
+  # SecureRandomメソッド⇒ランダムで文字列を生成してくれるRubyのメソッド
+  # Modelでemailで検索→メールアドレスない→新規登録→passwordは適当なやつ+名前はguestuserで登録するという設定をしている
+GUEST_USER_EMAIL = "guest@example.com"
+
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
+  end
 
 
   def self.looks(search, word)
