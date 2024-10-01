@@ -7,4 +7,17 @@ class Favorite < ApplicationRecord
   belongs_to :book
   belongs_to :user
 
+  # 通知用のアソシエート
+  has_one :notification, as: :notifiable, dependent: :destroy #追記
+
+
+  # 通知を作成する
+  after_create :notify_favorite
+
+  private
+
+  def notify_favorite
+    Notification.create(user_id: book.user_id, notifiable: self)
+  end
+
 end

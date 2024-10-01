@@ -28,6 +28,9 @@ class User < ApplicationRecord
   has_many :user_rooms, dependent: :destroy
   has_many :chats, dependent: :destroy
   has_many :rooms, through: :user_rooms
+  
+  # 通知用のアソシエート
+  has_many :notifications, dependent: :destroy
 
 
   #画像をUserモデルで取り扱う
@@ -54,7 +57,7 @@ class User < ApplicationRecord
   # find_or_create_byは、データの検索と作成を自動で判断する→今回は指定してるemailがない→新規作成につながる
   # SecureRandomメソッド⇒ランダムで文字列を生成してくれるRubyのメソッド
   # Modelでemailで検索→メールアドレスない→新規登録→passwordは適当なやつ+名前はguestuserで登録するという設定をしている
-GUEST_USER_EMAIL = "guest@example.com"
+  GUEST_USER_EMAIL = "guest@example.com"
 
   def self.guest
     find_or_create_by!(email: GUEST_USER_EMAIL) do |user|

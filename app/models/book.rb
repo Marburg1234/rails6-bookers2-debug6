@@ -3,9 +3,17 @@ class Book < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  # 通知用のアソシエート
+  has_many :notifications, as: :notifiable, dependent: :destroy #追記
+
   # validatesの設定
   validates :title, presence: true
   validates :body, presence: true, length: { maximum: 200 }
+
+  # 通知を作成する
+  after_create :notify_followers
+
+
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
@@ -24,4 +32,15 @@ class Book < ApplicationRecord
       @book = Book.all
     end
   end
+
+  private
+
+  def notify_followers
+    user.followers.each do |follower|
+      Notification.create(user_id: follower.id, notifiable: self)
+    end
+  end
+
+
+
 end
