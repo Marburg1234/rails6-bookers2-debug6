@@ -16,6 +16,7 @@ class Favorite < ApplicationRecord
 
   private
 
+  # いいねが起きた時にnotificationにデータを登録するメソッド
   def notify_favorite
     Notification.create(user_id: book.user_id, notifiable: self)
   end

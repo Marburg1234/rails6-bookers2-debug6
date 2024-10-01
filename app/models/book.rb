@@ -35,6 +35,7 @@ class Book < ApplicationRecord
 
   private
 
+  # 投稿した時に、フォロワーに通知するためにnotificationモデルにデータを追加する
   def notify_followers
     user.followers.each do |follower|
       Notification.create(user_id: follower.id, notifiable: self)
