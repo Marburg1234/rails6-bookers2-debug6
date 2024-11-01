@@ -22,9 +22,12 @@
           <td id="favorite_buttons_<%= @book.id %>">
           <%= render 'favorites/likey', book: @book %>
           </td>
-          
+
           <td>
             <%= render 'book_comments/comment-count', book: @book %>
+          </td>
+          <td>
+            閲覧数：<%= @book.visit_counts.count %>
           </td>
 
           <% if current_user.id == @book.user.id %>

@@ -5,6 +5,7 @@ class Book < ApplicationRecord
 
   # 通知用のアソシエート
   has_many :notifications, as: :notifiable, dependent: :destroy #追記
+  has_many :visit_counts, dependent: :destroy
 
   # validatesの設定
   validates :title, presence: true
