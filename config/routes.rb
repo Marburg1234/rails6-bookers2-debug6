@@ -22,8 +22,14 @@ Rails.application.routes.draw do
     get :followers, on: :member
   end
 
+  resources :chats, only: [:show, :create, :destroy]
+
   get 'search' => "searches#search"
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_scope :user do
+    post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
+  end
+
+  resources :notifications, only: [:update]
 
 end

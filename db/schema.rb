@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_25_064551) do
+ActiveRecord::Schema.define(version: 2024_11_01_100843) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 2024_07_25_064551) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "chats", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "room_id", null: false
+    t.string "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_chats_on_room_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "book_id"
@@ -63,11 +73,36 @@ ActiveRecord::Schema.define(version: 2024_07_25_064551) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "notifiable_type", null: false
+    t.integer "notifiable_id", null: false
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.integer "following_id"
     t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_rooms", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_user_rooms_on_room_id"
+    t.index ["user_id"], name: "index_user_rooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -84,6 +119,22 @@ ActiveRecord::Schema.define(version: 2024_07_25_064551) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "visit_counts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_visit_counts_on_book_id"
+    t.index ["user_id"], name: "index_visit_counts_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chats", "rooms"
+  add_foreign_key "chats", "users"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "user_rooms", "rooms"
+  add_foreign_key "user_rooms", "users"
+  add_foreign_key "visit_counts", "books"
+  add_foreign_key "visit_counts", "users"
 end

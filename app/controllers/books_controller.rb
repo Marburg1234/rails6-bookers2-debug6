@@ -4,10 +4,18 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
     @user = @book.user
+
+    #ページを訪問した人を記録する
+    user = current_user
+    #自分の投稿を訪問しても増えないようにする
+    if user != @user
+      user.visit_counts.create(book_id: @book.id)
+    end
   end
 
   def index
-    @books = Book.all
+    # @books = Book.all
+    @books = Book.left_joins(:favorites).group(:id).order('COUNT(favorites.id) DESC').all
     @book = Book.new
   end
 
@@ -43,6 +51,9 @@ class BooksController < ApplicationController
     @book.delete
     redirect_to books_path
   end
+
+
+
 
   private
 
