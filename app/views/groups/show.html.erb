@@ -29,4 +29,27 @@
       <% end %>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 mx-auto">
+      <h3 class="text-center">参加メンバー</h3>
+      <h4>参加人数：<%= @group.group_users_count %></h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>プロフィール写真</th>
+            <th>名前</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @group.users.each do |user| %>
+            <tr>
+              <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
+              <td><%= user.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
