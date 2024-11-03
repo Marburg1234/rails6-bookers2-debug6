@@ -29,7 +29,14 @@
             <tr>
               <td><%= image_tag group.get_group_image, size: '100x100' %></td>
               <td><%= group.name %></td>
+              <td>参加人数：<%= group.group_users_count %></td>
               <td><%= link_to "詳細へ", group_path(group) %></td>
+              <% group_user = group.group_users.find_by(user_id: current_user.id) %>
+              <% if group_user %>
+                <td><%= link_to "グループを抜ける", group_group_user_path(group, current_user), method: :delete, class: 'btn btn-danger btn-sm' %></td>
+              <% else %>
+                <td><%= link_to "参加する", group_group_users_path(group), method: :post, class: 'btn btn-warning btn-sm' %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :notifications, only: [:update]
 
-  resources :groups, only: %i[index new show create edit update destroy]
-
+  resources :groups, only: %i[index new show create edit update destroy] do
+    resources :group_users, only: %i[create destroy]
+  end
 end

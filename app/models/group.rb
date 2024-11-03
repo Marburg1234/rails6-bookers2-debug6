@@ -20,4 +20,16 @@ class Group < ApplicationRecord
     end
   end
 
+  def group_users_count
+    group_users.count
+  end
+
+  def already_group_join
+    if group_users.exist(current_user)
+      true
+    else
+      false
+    end
+  end
+
 end
