@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :visit_counts, dependent: :destroy
+  has_many :group_users, dependent: :destroy
 
 
   # ============フォローする・している側からの視点==========

@@ -1,0 +1,39 @@
+
+
+<div class='container px-5 px-sm-0'>
+  <%= render 'layouts/errors', obj: @book %>
+
+  <div class='row'>
+
+    <div class='col-md-3'>
+
+
+      <h2>User info</h2>
+      <%= render './users/info', user: current_user %>
+      <h2 class="mt-3">New book</h2>
+      <%= render './books/form', book: @book %>
+    </div>
+    <div class='col-md-9'>
+      <h2>コミュニティグループ一覧を表示するよ</h2>
+      <%= link_to "新しいグループの作成", new_group_path, class: 'btn btn-info btn-sm mb-3' %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>グループ写真</th>
+            <th>名称</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @groups.each do |group| %>
+            <tr>
+              <td><%= image_tag group.get_group_image, size: '100x100' %></td>
+              <td><%= group.name %></td>
+              <td><%= link_to "詳細へ", group_path(group) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
