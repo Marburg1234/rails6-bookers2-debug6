@@ -23,8 +23,10 @@
       <div>
         <%= @group.introduction %>
       </div>
-      <%= link_to "編集する", edit_group_path(@group), class: 'btn btn-success btn-sm' %>
-      <%= link_to "削除する", group_path(@group), method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: "削除してよいでしょうか?" } %>
+      <% if @group.owner_id == current_user.id %>
+        <%= link_to "編集する", edit_group_path(@group), class: 'btn btn-success btn-sm' %>
+        <%= link_to "削除する", group_path(@group), method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: "削除してよいでしょうか?" } %>
+      <% end %>
     </div>
   </div>
 </div>
