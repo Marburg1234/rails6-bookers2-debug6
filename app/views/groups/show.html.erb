@@ -31,6 +31,14 @@
         <%= link_to "編集する", edit_group_path(@group), class: 'btn btn-success btn-sm' %>
         <%= link_to "削除する", group_path(@group), method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: "削除してよいでしょうか?" } %>
       <% end %>
+
+      <% group_user = @group.group_users.find_by(user_id: current_user.id) %>
+      <% if group_user %>
+        <%= link_to "グループを抜ける", group_group_user_path(@group, current_user), method: :delete, class: 'btn btn-danger btn-sm mt-3' %>
+      <% else %>
+        <%= link_to "参加する", group_group_users_path(@group), method: :post, class: 'btn btn-warning btn-sm mt-3' %>
+      <% end %>
+
     </div>
   </div>
 
