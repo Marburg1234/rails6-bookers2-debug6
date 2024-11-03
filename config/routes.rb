@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  # get 'book_comments/create'
-  # get 'book_comments/destroy'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
 
    devise_for :users
 
@@ -31,5 +29,7 @@ Rails.application.routes.draw do
   end
 
   resources :notifications, only: [:update]
+
+  resources :groups, only: %i[index new show create edit update destroy]
 
 end

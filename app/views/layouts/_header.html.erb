@@ -40,6 +40,11 @@
             </div>
           </li>
           <li>
+            <%= link_to groups_path, class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-group-arrows-rotate"></i>グループ
+            <% end %>
+          </li>
+          <li>
             <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
               <i class="fas fa-sign-out-alt"></i>Log out
             <% end %>
