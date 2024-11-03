@@ -16,6 +16,8 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
     if @group.save
+      @group.group_users.create(user_id: current_user.id)
+      flash[:notice] = "グループを作成しました"
       redirect_to groups_path
     else
       render :new
