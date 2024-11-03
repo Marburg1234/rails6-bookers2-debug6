@@ -3,6 +3,7 @@ class Group < ApplicationRecord
   has_many :group_users, dependent: :destroy
   belongs_to :owner, class_name: 'User'
   has_many :users, through: :group_users
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
 
   validates :name, presence: true, length: { in: 2..20 }
   validates :introduction, presence: true, length: { in: 2..100 }

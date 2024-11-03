@@ -25,6 +25,7 @@ class GroupsController < ApplicationController
   def show
     @book = Book.new
     @group = Group.find(params[:id])
+    owner = @group.owner_id
   end
 
   def edit

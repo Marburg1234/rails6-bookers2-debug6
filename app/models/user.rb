@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :visit_counts, dependent: :destroy
   has_many :group_users, dependent: :destroy
+  has_many :groups, through: :group_users
+  has_many :owned_groups, class_name: 'Group', foreign_key: 'owner_id'
 
 
   # ============フォローする・している側からの視点==========
